@@ -3,11 +3,11 @@ import 'dart:ui';
 const double gameWidth = 820.0;
 const double gameHeight = 1600.0;
 
-const double ballRadius = gameWidth * 0.02;
+const double ballRadius = gameWidth * 0.2;
 
 const batWidth = gameWidth * 0.2;
-const batHeight = ballRadius * 2;
-const batStep = gameWidth * 0.05;
+const batHeight = ballRadius * 0.2;
+const batStep = gameWidth * 0.2;
 
 const brickColors = [                                           // Add this const
   Color(0xfff94144),

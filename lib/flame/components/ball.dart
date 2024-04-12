@@ -53,9 +53,13 @@ class Ball extends CircleComponent
         velocity.x = -velocity.x;
       } else if (intersectionPoints.first.y >= game.height) {
         //下に衝突した場合
+        //TODO ゲームオーバーのStatusを入れる必要がある
         add(
           RemoveEffect(
             delay: 1.0,
+            onComplete: () {
+              game.playStatus = PlayStatus.gameOver;
+            }
           ),
         );
       }

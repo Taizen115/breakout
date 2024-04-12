@@ -29,7 +29,9 @@ class Brick extends RectangleComponent
     removeFromParent();
 
     //レンガを全部壊したらBallとBatも消す
+    //TODO ゲームの勝利ページを出す
     if (game.world.children.query<Brick>().length == 1) {
+      game.playStatus = PlayStatus.won;
       game.world.removeAll(game.world.children.query<Ball>());
       game.world.removeAll(game.world.children.query<Bat>());
     }
