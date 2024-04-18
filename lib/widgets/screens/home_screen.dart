@@ -2,30 +2,57 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:game/flame/brick_breaker.dart';
 import 'package:game/flame/utils/config.dart';
+import 'package:game/widgets/components/score_card.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late final BrickBreaker game;
+
+  @override
+  void initState() {
+    super.initState();
+    game = BrickBreaker();
+  }
+
   //TODO ゲームの装飾を付ける
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FittedBox(
-          child: SizedBox(
-            width: gameWidth,
-            height: gameHeight,
-            child: GameWidget.controlled(
-              gameFactory: BrickBreaker.new,
-              overlayBuilderMap: {
-                PlayStatus.welcome.name: (context, game) =>
-                    _createWelcomeOverlay(context),
-                PlayStatus.gameOver.name: (context, game) =>
-                    _createGameOverOverlay(context),
-                PlayStatus.won.name: (context, game) =>
-                    _createWonOverOverlay(context),
-              },
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 50.0),
+              child: ScoreCard(score: game.score),
             ),
-          ),
+            Expanded(
+              child: Center(
+                child: FittedBox(
+                  child: SizedBox(
+                    width: gameWidth,
+                    height: gameHeight,
+                    child: GameWidget(
+                      game: game,
+                      overlayBuilderMap: {
+                        PlayStatus.welcome.name: (context, game) =>
+                            _createWelcomeOverlay(context),
+                        PlayStatus.gameOver.name: (context, game) =>
+                            _createGameOverOverlay(context),
+                        PlayStatus.won.name: (context, game) =>
+                            _createWonOverOverlay(context),
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -34,7 +61,7 @@ class HomeScreen extends StatelessWidget {
   Widget _createWelcomeOverlay(BuildContext context) {
     return Center(
       child: Text(
-        "ボタンを押して、レッツプレイ！",
+        "ボタン押したら、ゲーム始まるでー(*‘ω‘ *)",
         style: Theme.of(context).textTheme.headlineLarge,
       ),
     );
@@ -43,7 +70,7 @@ class HomeScreen extends StatelessWidget {
   Widget _createGameOverOverlay(BuildContext context) {
     return Center(
       child: Text(
-        "ゲームオーバー⤵　再チャレンジ求む",
+        "あー、もう少しがんばりー",
         style: Theme.of(context).textTheme.headlineLarge,
       ),
     );
@@ -52,7 +79,7 @@ class HomeScreen extends StatelessWidget {
   Widget _createWonOverOverlay(BuildContext context) {
     return Center(
       child: Text(
-        "ゲームクリア⤴　アゲアゲー🤩",
+        "ゲームクリア！おつかれさんです🍵",
         style: Theme.of(context).textTheme.headlineLarge,
       ),
     );

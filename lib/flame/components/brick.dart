@@ -25,8 +25,11 @@ class Brick extends RectangleComponent
   @override
   void onCollisionStart(Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+
     //TODO ボールがレンガに衝突したら消える
+    //スコアが変わる
     removeFromParent();
+    game.score.value++;
 
     //レンガを全部壊したらBallとBatも消す
     //TODO ゲームの勝利ページを出す
